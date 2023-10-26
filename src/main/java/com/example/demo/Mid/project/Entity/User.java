@@ -1,49 +1,61 @@
 package com.example.demo.Mid.project.Entity;
+//import com.example.demo.Mid.project.Entity.Role;
+
 
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.context.annotation.Role;
+
+import java.util.Objects;
+
 
 @Entity
-@Table (name ="Usre")
-@Inheritance(strategy = InheritanceType.JOINED)
+@Setter
+@Getter
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Table(name = "users")
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long ID;
-    private String UserName;
-    private String UserEmail;
+    @GeneratedValue(strategy = GenerationType.TABLE)
+    private Long id;
+
+    private String userName;
+    private String userEmail;
+    private String role;
 
     public User() {
-
     }
 
-    public User(long ID, String userName, String userEmail) {
-        this.ID = ID;
-        UserName = userName;
-        UserEmail = userEmail;
+    public User(Long id, String userName, String userEmail, String role) {
+        this.id = id;
+        this.userName = userName;
+        this.userEmail = userEmail;
+        this.role = role;
     }
 
-    public long getID() {
-        return ID;
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", userName='" + userName + '\'' +
+                ", userEmail='" + userEmail + '\'' +
+                ", role='" + role + '\'' +
+                '}';
     }
 
-    public void setID(long ID) {
-        this.ID = ID;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id) && Objects.equals(userName, user.userName) && Objects.equals(userEmail, user.userEmail) && Objects.equals(role, user.role);
     }
 
-    public String getUserName() {
-        return UserName;
-    }
-
-    public void setUserName(String userName) {
-        UserName = userName;
-    }
-
-    public String getUserEmail() {
-        return UserEmail;
-    }
-
-    public void setUserEmail(String userEmail) {
-        UserEmail = userEmail;
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, userName, userEmail, role);
     }
 }

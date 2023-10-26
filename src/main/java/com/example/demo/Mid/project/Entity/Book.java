@@ -4,15 +4,21 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "Book")
+
 public class Book {
+
+    @ManyToOne
+    private   Order order;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long ID;
     private String Author;
-    private String Title;
+    private String title;
     private  int quantity;
     private  double price;
     private int YearPulblication;
+    @ManyToOne
+    private Admin admin;
 
     public Book() {
     }
@@ -20,10 +26,13 @@ public class Book {
     public Book(long ID, String author, String title, int quantity, double price, int yearPulblication) {
         this.ID = ID;
         Author = author;
-        Title = title;
+        title = title;
         this.quantity = quantity;
         this.price = price;
         YearPulblication = yearPulblication;
+    }
+
+    public Book(double i, String author, String title, double price, int yearPulblication) {
     }
 
     public long getID() {
@@ -43,11 +52,11 @@ public class Book {
     }
 
     public String getTitle() {
-        return Title;
+        return title;
     }
 
     public void setTitle(String title) {
-        Title = title;
+        title = title;
     }
 
     public int getQuantity() {
@@ -79,10 +88,12 @@ public class Book {
         return "Book{" +
                 "ID=" + ID +
                 ", Author='" + Author + '\'' +
-                ", Title='" + Title + '\'' +
+                ", Title='" + title + '\'' +
                 ", quantity=" + quantity +
                 ", price=" + price +
                 ", YearPulblication=" + YearPulblication +
                 '}';
     }
+
+
 }

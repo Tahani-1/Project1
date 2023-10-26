@@ -1,18 +1,36 @@
 package com.example.demo.Mid.project.Entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
-@Table(name = "Customer")
+//@Getter
+//@Setter
+@Table(name = "customers")
 public class Customer extends User {
-    @Id
-
-    private long ID;
 
 
+@OneToOne
+private Order order;
 
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
+    public Customer() {
+    }
+
+    public Customer(Long id, String userName, String userEmail, String role) {
+        super(id, userName, userEmail, role);
+    }
 }
-
 
 
 
